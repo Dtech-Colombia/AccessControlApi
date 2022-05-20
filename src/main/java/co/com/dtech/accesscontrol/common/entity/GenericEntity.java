@@ -1,4 +1,4 @@
-package co.com.dtech.accesscontrol.entities;
+package co.com.dtech.accesscontrol.common.entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-import co.com.dtech.accesscontrol.common.GenericBean;
+import co.com.dtech.accesscontrol.common.bean.GenericBean;
 
 @MappedSuperclass
 public abstract class GenericEntity implements Serializable {

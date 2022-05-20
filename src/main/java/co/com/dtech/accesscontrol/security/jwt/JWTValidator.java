@@ -55,6 +55,7 @@ public class JWTValidator {
 		} 
 		
 		if (token != null && user != null) {
+			request.setAttribute("token", token);
 			user.setToken(token);
 			return user;
 		}

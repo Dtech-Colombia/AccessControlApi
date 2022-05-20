@@ -2,8 +2,6 @@ package co.com.dtech.accesscontrol.security.jwt;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Function;
 
 import org.apache.commons.text.StringTokenizer;
@@ -39,7 +37,7 @@ public class JwtTokenUtil implements Serializable {
 		StringTokenizer str = new StringTokenizer(subject, "|");
 		str.setEmptyTokenAsNull(false);
 		str.setIgnoreEmptyTokens(false);
-		user.setId(Integer.parseInt(str.nextToken()));
+		//user.setId(Integer.parseInt(str.nextToken()));
 		user.setNames(str.nextToken());
 		user.setLastName1(str.nextToken());
 		user.setLastName2(str.nextToken());

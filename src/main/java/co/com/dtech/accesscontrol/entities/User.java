@@ -11,6 +11,8 @@ import javax.persistence.Table;
 
 import org.springframework.beans.BeanUtils;
 
+import co.com.dtech.accesscontrol.common.bean.GenericBean;
+import co.com.dtech.accesscontrol.common.entity.GenericEntity;
 import co.com.dtech.accesscontrol.security.model.UserBean;
 
 @Entity
@@ -127,14 +129,14 @@ public class User extends GenericEntity implements Serializable{
 	@Override
 	public String toString() {
 		return "User [names=" + names + ", lastName1=" + lastName1 + ", lastName2=" + lastName2 + ", userType="
-				+ userType + ", username=" + username + ", password=" + password + ", id=" + id + ", idcreatedAt="
-				+ createdAt + ", updatedAt=" + updatedAt + "]";
+				+ userType + ", username=" + username + ", password=" + password /*+ ", id=" + id + ", idcreatedAt="
+				+ createdAt + ", updatedAt=" + updatedAt */+ "]";
 	}
 	
 	@Override
 	public UserBean getBean() {
 		UserBean bean = new UserBean();
-		BeanUtils.copyProperties(this, bean);
+		BeanUtils.copyProperties(this, bean,new String[]{"password"});
 		return bean;
 		
 	}

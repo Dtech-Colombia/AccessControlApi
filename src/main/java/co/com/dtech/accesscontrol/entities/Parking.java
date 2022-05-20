@@ -1,9 +1,13 @@
 package co.com.dtech.accesscontrol.entities;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-import co.com.dtech.accesscontrol.common.GenericBean;
-
+import co.com.dtech.accesscontrol.common.bean.GenericBean;
+import co.com.dtech.accesscontrol.common.entity.GenericEntity;
+@Entity
+@Table(name = "parking_lot")
 public class Parking extends GenericEntity{
 
 	/**

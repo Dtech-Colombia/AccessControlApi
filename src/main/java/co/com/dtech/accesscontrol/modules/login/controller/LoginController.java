@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import co.com.dtech.accesscontrol.modules.login.service.LoginService;
 import co.com.dtech.accesscontrol.security.jwt.AuthenticationException;
 import co.com.dtech.accesscontrol.security.model.UserBean;
+import co.com.dtech.accesscontrol.security.model.UserTypeBean;
 
 //Controller
 @CrossOrigin(origins = "*")
@@ -38,9 +39,10 @@ public class LoginController {
 	}
 	
 	@GetMapping(path = "/hello")
-	public ResponseEntity<String> doLogin() throws Exception{
+	public ResponseEntity<UserTypeBean> doLogin() throws Exception{
+		UserTypeBean obj = new UserTypeBean(1,"PRUEBA");
 		//URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand("").toUri();
-		return new ResponseEntity<String>("HOLA",HttpStatus.OK);
+		return new ResponseEntity<UserTypeBean>(obj,HttpStatus.OK);
 		
 	}
 

@@ -8,6 +8,7 @@ import javax.persistence.Table;
 
 import org.springframework.beans.BeanUtils;
 
+import co.com.dtech.accesscontrol.common.entity.GenericEntity;
 import co.com.dtech.accesscontrol.security.model.UserTypeBean;
 
 @Entity

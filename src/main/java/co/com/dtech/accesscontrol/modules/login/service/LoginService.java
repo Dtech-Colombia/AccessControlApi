@@ -7,6 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import co.com.dtech.accesscontrol.entities.User;
 import co.com.dtech.accesscontrol.repository.UserRepository;
+import co.com.dtech.accesscontrol.security.EncrypAESB64;
+import co.com.dtech.accesscontrol.security.jwt.AuthenticationException;
 import co.com.dtech.accesscontrol.security.jwt.JwtTokenUtil;
 import co.com.dtech.accesscontrol.security.model.UserBean;
 
@@ -22,9 +24,12 @@ public class LoginService {
 	
 	public UserBean doLogin(UserBean user) {		
 		User userDb = userRepository.findByUsername(user.getUsername());
+		String encPass = EncrypAESB64.encryptAES(user.getPassword());
+		if (userDb ==null || !userDb.getPassword().equals(encPass)) {
+			throw new AuthenticationException("Usuario o contraseña incorrecta");
+		}
 		UserBean userResponse = userDb.getBean();
 		userResponse.setToken( jwtTokenUtil.doGenerateToken(userDb));
-		System.err.println(userResponse.toString());
 		return userResponse;		
 	}
 

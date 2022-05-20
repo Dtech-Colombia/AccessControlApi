@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -21,18 +20,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
 import org.apache.commons.io.output.TeeOutputStream;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.DelegatingServletOutputStream;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-
+import co.com.dtech.accesscontrol.common.StringUtils;
 import co.com.dtech.accesscontrol.security.jwt.AuthenticationException;
 import co.com.dtech.accesscontrol.security.jwt.JWTValidator;
 
@@ -42,8 +38,8 @@ public class AuthenticationFilter extends GenericFilterBean {
 	@Autowired
 	private JWTValidator validator;
 
-	private static final Logger log = LogManager.getLogger("tramas-log");
-	private static final Logger errorLog = LogManager.getLogger("error-log");
+	private static final Logger log = LogManager.getLogger("tramas");
+	private static final Logger errorLog = LogManager.getLogger("error");
 
 	private static List<String> bodyMethods = null;
 
@@ -117,7 +113,6 @@ public class AuthenticationFilter extends GenericFilterBean {
 			chain.doFilter(hsr, resp);
 		} catch (Exception ex) {
 			baos.reset();
-			errorLog.error(ex.getMessage(),ex);
 			int respCode = ex instanceof AuthenticationException ? HttpServletResponse.SC_UNAUTHORIZED : HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 			resp.sendError( respCode, ex.getMessage());
 			return;
@@ -132,32 +127,20 @@ public class AuthenticationFilter extends GenericFilterBean {
 		String req = null;
 		if (bodyMethods.contains(hsr.getMethod())) {
 			req =extractPostRequestBody(hsr);
-			/*if (req != null && !"".equals(req)) {
-				Gson gson = new Gson();
-				JsonObject obj = gson.fromJson(req, JsonObject.class);
-				String password = obj.get("password") == null? "":obj.get("password").getAsString();
-				if (password != null && !"".equals(password)) {
-					obj.addProperty("password", "----");					
-				}		
-				req = obj.toString();
-				
-			}*/
+			req =StringUtils.replaceJsonProperties(req, "password", "######");
+			req =StringUtils.replaceJsonProperties(req, "token", "######");
 		}else {
-			req =extractParameters(hsr);			
+			req =extractParameters(hsr);	
 		}
-		log.debug(MessageFormat.format("REQUEST (%s) : %s", uri,req));
+		log.debug(String.format("REQUEST (%s) : %s", uri,req));
 	}
 
 	private void logResponse(ByteArrayOutputStream baos, String uri) {
 		String resp = new String(baos.toByteArray());
 		if (resp != null && !"".equals(resp)) {
-			/*Gson gson = new Gson();
-			JsonObject obj = gson.fromJson(resp, JsonObject.class);
-			String password = obj.get("password") == null? "":obj.get("password").getAsString();
-			if (password != null && !"".equals(password)) {
-				obj.addProperty("password", "----");					
-			}	*/	
-			log.debug(MessageFormat.format("RESPONSE (%s) : %s", uri, resp.toString()));
+			resp = StringUtils.replaceJsonProperties(resp, "password", "######");
+			resp = StringUtils.replaceJsonProperties(resp, "token", "######");
+			log.debug(String.format("RESPONSE (%s) : %s", uri, resp));
 		}
 	}
 
