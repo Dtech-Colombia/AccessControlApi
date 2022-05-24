@@ -5,12 +5,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import co.com.dtech.accesscontrol.entities.User;
+import co.com.dtech.accesscontrol.common.bean.UserBean;
+import co.com.dtech.accesscontrol.common.entity.User;
 import co.com.dtech.accesscontrol.repository.UserRepository;
 import co.com.dtech.accesscontrol.security.EncrypAESB64;
 import co.com.dtech.accesscontrol.security.jwt.AuthenticationException;
 import co.com.dtech.accesscontrol.security.jwt.JwtTokenUtil;
-import co.com.dtech.accesscontrol.security.model.UserBean;
 
 @Service
 @Transactional(propagation = Propagation.REQUIRED,readOnly = false)

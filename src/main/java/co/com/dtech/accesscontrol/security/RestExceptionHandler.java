@@ -2,6 +2,7 @@ package co.com.dtech.accesscontrol.security;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -18,6 +19,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 	public ResponseEntity<String> handleAuthenticationException(AuthenticationException e) {
 		log.error(e.getMessage(),e);
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+	}
+	
+	@ExceptionHandler({ DataIntegrityViolationException.class })
+	public ResponseEntity<String> handleDataIngerityException(DataIntegrityViolationException e) {
+		log.error(e.getMessage(),e);
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ERROR DE ACCESO A DATOS");
 	}
 	
 	@ExceptionHandler({ Throwable.class })

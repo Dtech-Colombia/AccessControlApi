@@ -2,7 +2,6 @@ package co.com.dtech.accesscontrol.security;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
@@ -10,8 +9,8 @@ import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
-import co.com.dtech.accesscontrol.common.StringUtils;
 import co.com.dtech.accesscontrol.common.bean.GenericBean;
+import co.com.dtech.accesscontrol.common.util.StringUtils;
 
 @ControllerAdvice
 public class ResponseTokenAdvice implements ResponseBodyAdvice<Object> {

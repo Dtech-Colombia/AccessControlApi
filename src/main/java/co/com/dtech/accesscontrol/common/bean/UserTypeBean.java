@@ -1,6 +1,4 @@
-package co.com.dtech.accesscontrol.security.model;
-
-import co.com.dtech.accesscontrol.common.bean.GenericBean;
+package co.com.dtech.accesscontrol.common.bean;
 
 public class UserTypeBean extends GenericBean {
 

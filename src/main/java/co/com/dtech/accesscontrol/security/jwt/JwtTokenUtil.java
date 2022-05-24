@@ -8,9 +8,9 @@ import org.apache.commons.text.StringTokenizer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import co.com.dtech.accesscontrol.entities.User;
-import co.com.dtech.accesscontrol.security.model.UserBean;
-import co.com.dtech.accesscontrol.security.model.UserTypeBean;
+import co.com.dtech.accesscontrol.common.bean.UserBean;
+import co.com.dtech.accesscontrol.common.bean.UserTypeBean;
+import co.com.dtech.accesscontrol.common.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Clock;
 import io.jsonwebtoken.Jwts;

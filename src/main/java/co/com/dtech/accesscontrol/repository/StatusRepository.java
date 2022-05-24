@@ -5,12 +5,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import co.com.dtech.accesscontrol.common.entity.User;
+import co.com.dtech.accesscontrol.common.entity.Status;
 
 @Repository
 @Transactional(propagation = Propagation.REQUIRED,readOnly = false)
-public interface UserRepository extends JpaRepository<User,Integer> {
-	
-	User findByUsername(String username);
+public interface StatusRepository extends JpaRepository<Status, Integer> {
 
 }

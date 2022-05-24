@@ -4,17 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import co.com.dtech.accesscontrol.common.bean.UserBean;
 import co.com.dtech.accesscontrol.modules.login.service.LoginService;
-import co.com.dtech.accesscontrol.security.jwt.AuthenticationException;
-import co.com.dtech.accesscontrol.security.model.UserBean;
-import co.com.dtech.accesscontrol.security.model.UserTypeBean;
 
 //Controller
 @CrossOrigin(origins = "*")
@@ -23,6 +19,7 @@ import co.com.dtech.accesscontrol.security.model.UserTypeBean;
 public class LoginController {
 	@Autowired
 	private LoginService loginService;
+
 	
 	/**
 	 * Method to Sign in
@@ -35,14 +32,6 @@ public class LoginController {
 		//URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand("").toUri();
 		UserBean response = loginService.doLogin(user);
 		return new ResponseEntity<UserBean>(response,HttpStatus.OK);
-		
-	}
-	
-	@GetMapping(path = "/hello")
-	public ResponseEntity<UserTypeBean> doLogin() throws Exception{
-		UserTypeBean obj = new UserTypeBean(1,"PRUEBA");
-		//URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand("").toUri();
-		return new ResponseEntity<UserTypeBean>(obj,HttpStatus.OK);
 		
 	}
 

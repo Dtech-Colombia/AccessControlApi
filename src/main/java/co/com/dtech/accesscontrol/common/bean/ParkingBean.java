@@ -1,30 +1,18 @@
-package co.com.dtech.accesscontrol.entities;
+package co.com.dtech.accesscontrol.common.bean;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-import co.com.dtech.accesscontrol.common.bean.GenericBean;
-import co.com.dtech.accesscontrol.common.entity.GenericEntity;
-@Entity
-@Table(name = "parking_lot")
-public class Parking extends GenericEntity{
+public class ParkingBean extends GenericBean {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 8359330660563047337L;
-	
-	@Column(name = "names")
+	private static final long serialVersionUID = -5330537984175499752L;
+
 	private String names;
-	
-	@Column(name = "reserve_needed")
+
 	private String reserveNeeded;
-	
-	@Column(name = "total_available")
+
 	private Integer totalAvailable;
-	
-	@Column(name = "reversed_lots")
+
 	private Integer reservedLots;
 
 	/**
@@ -85,17 +73,11 @@ public class Parking extends GenericEntity{
 
 	@Override
 	public String toString() {
-		return "Parking [names=" + names + ", reserveNeeded=" + reserveNeeded + ", totalAvailable=" + totalAvailable
-				+ ", reservedLots=" + reservedLots + "]";
+		return "ParkingBean [names=" + names + ", reserveNeeded=" + reserveNeeded + ", totalAvailable=" + totalAvailable
+				+ ", reservedLots=" + reservedLots + ", id=" + id + ", token=" + token + ", createdAt=" + createdAt
+				+ ", updatedAt=" + updatedAt + "]";
 	}
 
-	@Override
-	public GenericBean getBean() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
-	
+
 
 }

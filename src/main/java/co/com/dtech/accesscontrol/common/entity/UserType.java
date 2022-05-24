@@ -1,4 +1,4 @@
-package co.com.dtech.accesscontrol.entities;
+package co.com.dtech.accesscontrol.common.entity;
 
 import java.io.Serializable;
 
@@ -8,8 +8,7 @@ import javax.persistence.Table;
 
 import org.springframework.beans.BeanUtils;
 
-import co.com.dtech.accesscontrol.common.entity.GenericEntity;
-import co.com.dtech.accesscontrol.security.model.UserTypeBean;
+import co.com.dtech.accesscontrol.common.bean.UserTypeBean;
 
 @Entity
 @Table(name = "user_type")

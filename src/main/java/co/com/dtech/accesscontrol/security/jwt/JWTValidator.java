@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import co.com.dtech.accesscontrol.common.bean.UserBean;
 import co.com.dtech.accesscontrol.security.MultiReadHttpServletRequest;
-import co.com.dtech.accesscontrol.security.model.UserBean;
 import io.jsonwebtoken.ExpiredJwtException;
 
 @Component

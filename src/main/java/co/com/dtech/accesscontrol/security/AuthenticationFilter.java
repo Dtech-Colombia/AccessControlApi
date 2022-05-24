@@ -10,6 +10,7 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -28,12 +29,12 @@ import org.springframework.mock.web.DelegatingServletOutputStream;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 
-import co.com.dtech.accesscontrol.common.StringUtils;
+import co.com.dtech.accesscontrol.common.util.JsonUtils;
 import co.com.dtech.accesscontrol.security.jwt.AuthenticationException;
 import co.com.dtech.accesscontrol.security.jwt.JWTValidator;
 
 @Component
-public class AuthenticationFilter extends GenericFilterBean {
+public class AuthenticationFilter extends GenericFilterBean implements Filter{
 	
 	@Autowired
 	private JWTValidator validator;
@@ -94,41 +95,51 @@ public class AuthenticationFilter extends GenericFilterBean {
 		MultiReadHttpServletRequest hsr = new MultiReadHttpServletRequest((HttpServletRequest) request);
 		HttpServletResponse resp = (HttpServletResponse) response;
 		String uri = hsr.getRequestURI().substring(hsr.getContextPath().length());
+		
+		/*if ("OPTIONS".equals(hsr.getMethod())) {//    httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
+			errorLog.error("FILTRANDO OPTIONS");
+			((HttpServletResponse)response).setHeader("Access-Control-Allow-Methods", "*");
+		    ((HttpServletResponse)response).setHeader("Access-Control-Allow-Headers", "*");
+		    ((HttpServletResponse)response).setHeader("Access-Control-Allow-Credentials", "*");
+		    ((HttpServletResponse)response).setHeader("Access-Control-Max-Age", "3600");
+			resp.setStatus(HttpStatus.OK.value());
+		}else {*/
 
-		try {
-			resp = new HttpServletResponseWrapper(resp) {
-				@Override
-				public ServletOutputStream getOutputStream() throws IOException {
-					return new DelegatingServletOutputStream(new TeeOutputStream(super.getOutputStream(), baos));
-				}
-
-				@Override
-				public PrintWriter getWriter() throws IOException {
-					return new PrintWriter(
-							new DelegatingServletOutputStream(new TeeOutputStream(super.getOutputStream(), baos)));
-				}
-			};
-			logRequest(hsr, uri);
-			validator.applyAuth(hsr, uri);
-			chain.doFilter(hsr, resp);
-		} catch (Exception ex) {
-			baos.reset();
-			int respCode = ex instanceof AuthenticationException ? HttpServletResponse.SC_UNAUTHORIZED : HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
-			resp.sendError( respCode, ex.getMessage());
-			return;
-		}
-		finally
-		{
-			logResponse(baos, uri);
-		}
+			try {
+				resp = new HttpServletResponseWrapper(resp) {
+					@Override
+					public ServletOutputStream getOutputStream() throws IOException {
+						return new DelegatingServletOutputStream(new TeeOutputStream(super.getOutputStream(), baos));
+					}
+	
+					@Override
+					public PrintWriter getWriter() throws IOException {
+						return new PrintWriter(
+								new DelegatingServletOutputStream(new TeeOutputStream(super.getOutputStream(), baos)));
+					}
+				};
+				logRequest(hsr, uri);
+				//validator.applyAuth(hsr, uri);
+				chain.doFilter(hsr, resp);
+			} catch (Exception ex) {
+				baos.reset();
+				int respCode = ex instanceof AuthenticationException ? HttpServletResponse.SC_UNAUTHORIZED : HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
+				resp.sendError( respCode, ex.getMessage());
+				return;
+			}
+			finally
+			{
+				logResponse(baos, uri);
+			}
+		//}
 	}
 
 	private void logRequest(HttpServletRequest hsr,String uri) throws IOException {
 		String req = null;
 		if (bodyMethods.contains(hsr.getMethod())) {
 			req =extractPostRequestBody(hsr);
-			req =StringUtils.replaceJsonProperties(req, "password", "######");
-			req =StringUtils.replaceJsonProperties(req, "token", "######");
+			req =JsonUtils.replaceJsonProperties(req, "password", "######");
+			req =JsonUtils.replaceJsonProperties(req, "token", "######");
 		}else {
 			req =extractParameters(hsr);	
 		}
@@ -138,8 +149,8 @@ public class AuthenticationFilter extends GenericFilterBean {
 	private void logResponse(ByteArrayOutputStream baos, String uri) {
 		String resp = new String(baos.toByteArray());
 		if (resp != null && !"".equals(resp)) {
-			resp = StringUtils.replaceJsonProperties(resp, "password", "######");
-			resp = StringUtils.replaceJsonProperties(resp, "token", "######");
+			resp = JsonUtils.replaceJsonProperties(resp, "password", "######");
+			resp = JsonUtils.replaceJsonProperties(resp, "token", "######");
 			log.debug(String.format("RESPONSE (%s) : %s", uri, resp));
 		}
 	}

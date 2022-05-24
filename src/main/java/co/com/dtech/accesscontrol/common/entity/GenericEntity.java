@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 
 import co.com.dtech.accesscontrol.common.bean.GenericBean;
 
@@ -74,6 +76,21 @@ public abstract class GenericEntity implements Serializable {
 	 */
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+	/**
+	 * Persistencia para registrar la fecga de inserción del registro
+	 */
+	@PrePersist
+	private void onCreate() {
+		this.setCreatedAt(new Date());
+	}
+	
+	/**
+	 * Persistencia para registrar la fecha de actualizacion del registro
+	 */
+	@PreUpdate
+	private void onUpdate() {
+		this.setUpdatedAt(new Date());
 	}
 
 	@Override

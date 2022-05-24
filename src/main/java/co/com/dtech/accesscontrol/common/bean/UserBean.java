@@ -1,6 +1,4 @@
-package co.com.dtech.accesscontrol.security.model;
-
-import co.com.dtech.accesscontrol.common.bean.GenericBean;
+package co.com.dtech.accesscontrol.common.bean;
 
 public class UserBean extends GenericBean {
 
@@ -103,8 +101,8 @@ public class UserBean extends GenericBean {
 	@Override
 	public String toString() {
 		return "UserBean [names=" + names + ", lastName1=" + lastName1 + ", lastName2=" + lastName2 + ", userType="
-				+ userType + ", username=" + username + ", password=" + password + ", token=" + token/* + ", id=" + id
-				+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt*/ + "]";
+				+ userType + ", username=" + username + ", password=" + password + ", token=" + token + ", id=" + id
+				+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
 	}
 
 }
