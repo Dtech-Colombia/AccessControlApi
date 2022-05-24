@@ -16,14 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class ParkingController {
 	
 	@PostMapping(path="/validate")
-	public ResponseEntity<String> validate() throws ParseException	{
+	public ResponseEntity validate() throws ParseException	{
 		double rd = Math.random();
-		String response = "0";
 		if (rd < 0.6) {
-			response = "1";
+			return ResponseEntity.badRequest().build();
 		}
+		return ResponseEntity.ok().build();
 		
-		return new ResponseEntity<String>(response,HttpStatus.OK);
 		
 	}
 }
