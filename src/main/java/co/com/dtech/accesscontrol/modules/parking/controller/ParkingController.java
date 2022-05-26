@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class ParkingController {
 	
 	@PostMapping(path="/validate")
-	public ResponseEntity validate() throws ParseException	{
+	public ResponseEntity validate(parkingValidationRequestBean request) throws ParseException	{
+		System.err.println(request.toString());
+		//63 22 AD A9
 		double rd = Math.random();
 		if (rd < 0.6) {
 			return ResponseEntity.badRequest().build();
