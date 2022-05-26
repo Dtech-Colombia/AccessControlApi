@@ -82,7 +82,9 @@ public abstract class GenericEntity implements Serializable {
 	 */
 	@PrePersist
 	private void onCreate() {
-		this.setCreatedAt(new Date());
+		Date now = new Date();
+		this.setCreatedAt(now);
+		this.setUpdatedAt(now);
 	}
 	
 	/**
