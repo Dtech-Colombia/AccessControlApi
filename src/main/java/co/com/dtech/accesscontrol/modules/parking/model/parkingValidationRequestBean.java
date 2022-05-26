@@ -1,17 +1,17 @@
-package co.com.dtech.accesscontrol.modules.parking.controller;
+package co.com.dtech.accesscontrol.modules.parking.model;
 
 import java.io.Serializable;
 
-public class parkingValidationRequestBean implements Serializable{
+public class parkingValidationRequestBean implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1476245935860117249L;
-	
+
 	private Integer parkingId;
-	
-	private String tagId;
+
+	private String tagCode;
 
 	/**
 	 * @return the parkingId
@@ -28,24 +28,22 @@ public class parkingValidationRequestBean implements Serializable{
 	}
 
 	/**
-	 * @return the tagId
+	 * @return the tagCode
 	 */
-	public String getTagId() {
-		return tagId;
+	public String getTagCode() {
+		return tagCode;
 	}
 
 	/**
-	 * @param tagId the tagId to set
+	 * @param tagCode the tagCode to set
 	 */
-	public void setTagId(String tagId) {
-		this.tagId = tagId;
+	public void setTagCode(String tagCode) {
+		this.tagCode = tagCode;
 	}
 
 	@Override
 	public String toString() {
-		return "parkingValidationRequestBean [parkingId=" + parkingId + ", tagId=" + tagId + "]";
+		return "parkingValidationRequestBean [parkingId=" + parkingId + ", tagCode=" + tagCode + "]";
 	}
-	
-	
 
 }

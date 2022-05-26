@@ -15,6 +15,13 @@ import co.com.dtech.accesscontrol.security.jwt.AuthenticationException;
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 	private static final Logger log = LogManager.getLogger("error");
 
+	
+	@ExceptionHandler({ Throwable.class })
+	public ResponseEntity<String> handleException(Throwable e) {
+		log.error(e.getMessage(),e);
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+	}
+
 	@ExceptionHandler({ AuthenticationException.class })
 	public ResponseEntity<String> handleAuthenticationException(AuthenticationException e) {
 		log.error(e.getMessage(),e);
@@ -25,12 +32,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 	public ResponseEntity<String> handleDataIngerityException(DataIntegrityViolationException e) {
 		log.error(e.getMessage(),e);
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ERROR DE ACCESO A DATOS");
-	}
-	
-	@ExceptionHandler({ Throwable.class })
-	public ResponseEntity<String> handleException(Throwable e) {
-		log.error(e.getMessage(),e);
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
 	}
 
 }

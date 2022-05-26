@@ -11,7 +11,6 @@ import javax.persistence.Table;
 
 import org.springframework.beans.BeanUtils;
 
-import co.com.dtech.accesscontrol.common.bean.GenericBean;
 import co.com.dtech.accesscontrol.common.bean.ParkingReserveBean;
 
 @Entity

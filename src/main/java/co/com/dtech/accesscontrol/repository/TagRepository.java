@@ -6,14 +6,11 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.com.dtech.accesscontrol.common.entity.Tag;
-import co.com.dtech.accesscontrol.common.entity.User;
 
 @Repository
-@Transactional(propagation = Propagation.REQUIRED,readOnly = false)
-public interface UserRepository extends JpaRepository<User,Integer> {
+@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+public interface TagRepository extends JpaRepository<Tag, Integer> {
 	
-	User findByUsername(String username);
-	
-	User findByTags(Tag tag);
+	Tag findByTagCode(String tagCode);
 
 }
