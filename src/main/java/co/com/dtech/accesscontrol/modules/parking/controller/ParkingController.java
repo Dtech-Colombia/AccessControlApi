@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.com.dtech.accesscontrol.modules.parking.model.ParkingValidationRequestBean;
+import co.com.dtech.accesscontrol.modules.parking.model.ParkingRequestBean;
 import co.com.dtech.accesscontrol.modules.parking.service.ParkingService;
 
 //Controller
@@ -25,7 +25,7 @@ public class ParkingController {
 	private ParkingService parkingService;
 
 	@PostMapping(path = "/validate")
-	public ResponseEntity<String> validate(@RequestBody ParkingValidationRequestBean request) throws ParseException {
+	public ResponseEntity<String> validate(@RequestBody ParkingRequestBean request) throws ParseException {
 		if (parkingService.validate(request)) {
 			return new ResponseEntity<String>(StringUtils.OK, HttpStatus.OK);
 		}
@@ -33,7 +33,7 @@ public class ParkingController {
 	}
 	
 	@PostMapping(path = "/parkingExit")
-	public ResponseEntity<String> parkingExit(@RequestBody ParkingValidationRequestBean request ){
+	public ResponseEntity<String> parkingExit(@RequestBody ParkingRequestBean request ){
 		parkingService.parkingExit(request);
 		return new ResponseEntity<String>(StringUtils.OK, HttpStatus.OK);
 	}

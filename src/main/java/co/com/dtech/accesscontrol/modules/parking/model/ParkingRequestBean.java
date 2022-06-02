@@ -2,7 +2,7 @@ package co.com.dtech.accesscontrol.modules.parking.model;
 
 import java.io.Serializable;
 
-public class ParkingValidationRequestBean implements Serializable {
+public class ParkingRequestBean implements Serializable {
 
 	/**
 	 * 

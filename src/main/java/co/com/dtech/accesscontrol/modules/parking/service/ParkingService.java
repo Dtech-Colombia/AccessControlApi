@@ -14,7 +14,7 @@ import co.com.dtech.accesscontrol.common.entity.Tag;
 import co.com.dtech.accesscontrol.common.entity.User;
 import co.com.dtech.accesscontrol.common.enums.StatusEnum;
 import co.com.dtech.accesscontrol.common.util.AppLogger;
-import co.com.dtech.accesscontrol.modules.parking.model.ParkingValidationRequestBean;
+import co.com.dtech.accesscontrol.modules.parking.model.ParkingRequestBean;
 import co.com.dtech.accesscontrol.repository.ParkingHistoryRepository;
 import co.com.dtech.accesscontrol.repository.ParkingRepository;
 import co.com.dtech.accesscontrol.repository.ParkingReserveRepository;
@@ -44,7 +44,7 @@ public class ParkingService {
 	@Autowired
 	private ParkingHistoryRepository historyRepository;
 
-	public boolean validate(ParkingValidationRequestBean request) {
+	public boolean validate(ParkingRequestBean request) {
 
 		Parking parking = parkingRepository.getById(request.getParkingId());
 
@@ -84,7 +84,7 @@ public class ParkingService {
 		return true;
 	}
 
-	public void parkingExit(ParkingValidationRequestBean request) {
+	public void parkingExit(ParkingRequestBean request) {
 
 		Parking parking = parkingRepository.getById(request.getParkingId());
 
