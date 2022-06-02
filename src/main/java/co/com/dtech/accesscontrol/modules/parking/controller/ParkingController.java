@@ -2,6 +2,7 @@ package co.com.dtech.accesscontrol.modules.parking.controller;
 
 import java.text.ParseException;
 
+import co.com.dtech.accesscontrol.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.com.dtech.accesscontrol.common.util.AppLogger;
-import co.com.dtech.accesscontrol.modules.parking.model.parkingValidationRequestBean;
+import co.com.dtech.accesscontrol.modules.parking.model.ParkingValidationRequestBean;
 import co.com.dtech.accesscontrol.modules.parking.service.ParkingService;
 
 //Controller
@@ -25,11 +25,16 @@ public class ParkingController {
 	private ParkingService parkingService;
 
 	@PostMapping(path = "/validate")
-	public ResponseEntity<String> validate(@RequestBody parkingValidationRequestBean request) throws ParseException {
+	public ResponseEntity<String> validate(@RequestBody ParkingValidationRequestBean request) throws ParseException {
 		if (parkingService.validate(request)) {
-			return new ResponseEntity<String>("", HttpStatus.OK);
+			return new ResponseEntity<String>(StringUtils.OK, HttpStatus.OK);
 		}
-		return new ResponseEntity<String>("", HttpStatus.FORBIDDEN);
-
+		return new ResponseEntity<String>(StringUtils.EMPTY, HttpStatus.FORBIDDEN);
+	}
+	
+	@PostMapping(path = "/parkingExit")
+	public ResponseEntity<String> parkingExit(@RequestBody ParkingValidationRequestBean request ){
+		parkingService.parkingExit(request);
+		return new ResponseEntity<String>(StringUtils.OK, HttpStatus.OK);
 	}
 }
