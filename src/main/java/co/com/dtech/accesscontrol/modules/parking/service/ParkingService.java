@@ -122,6 +122,8 @@ public class ParkingService {
 			reserveRepository.save(reserve);
 			history.setReserved("S");
 			history.setReserve(reserve);
+		}else {
+			history.setReserved("N");
 		}
 		historyRepository.save(history);
 	}
