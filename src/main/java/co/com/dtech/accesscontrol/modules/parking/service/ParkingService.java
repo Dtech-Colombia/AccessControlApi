@@ -79,6 +79,8 @@ public class ParkingService {
 			reserveRepository.save(reserve);
 			history.setReserved("S");
 			history.setReserve(reserve);
+		}else {
+			history.setReserved("N");
 		}
 		historyRepository.save(history);
 		return true;
@@ -89,6 +91,7 @@ public class ParkingService {
 		Parking parking = parkingRepository.getById(request.getParkingId());
 
 		if (parking == null) {
+			
 			throw new IllegalArgumentException("No se encuentra parqueadero con el ID: "+ request.getParkingId());
 		}
 
