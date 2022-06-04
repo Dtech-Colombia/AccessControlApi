@@ -21,7 +21,7 @@ import co.com.dtech.accesscontrol.modules.parking.service.ParkingService;
 @RequestMapping(path = "/parking")
 public class ParkingController {
 
-	@Autowired
+	@Autowired 
 	private ParkingService parkingService;
 
 	@PostMapping(path = "/validate")
