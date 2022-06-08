@@ -72,4 +72,8 @@ public class EncrypAESB64 {
         }
         return null;
     }
+    
+    public static void main(String[] args) {
+		System.err.println(encryptAES("123456"));
+	}
 }

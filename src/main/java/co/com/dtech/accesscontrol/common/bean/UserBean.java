@@ -13,6 +13,7 @@ public class UserBean extends GenericBean {
 	private UserTypeBean userType;
 	private String username;
 	private String password;
+	private RoleBean role;
 
 	/**
 	 * @return the names
@@ -96,6 +97,20 @@ public class UserBean extends GenericBean {
 	 */
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	/**
+	 * @return the role
+	 */
+	public RoleBean getRole() {
+		return role;
+	}
+
+	/**
+	 * @param role the role to set
+	 */
+	public void setRole(RoleBean role) {
+		this.role = role;
 	}
 
 	@Override

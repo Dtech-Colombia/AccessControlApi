@@ -47,6 +47,10 @@ public class User extends GenericEntity implements Serializable {
 	@JoinTable(name = "user_tags", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
 	private List<Tag> tags;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "role_id", nullable = false)
+	private Role role;
+
 	/**
 	 * @return the names
 	 */
@@ -145,13 +149,25 @@ public class User extends GenericEntity implements Serializable {
 		this.tags = tags;
 	}
 
+	/**
+	 * @return the role
+	 */
+	public Role getRole() {
+		return role;
+	}
+
+	/**
+	 * @param role the role to set
+	 */
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
 	@Override
 	public String toString() {
 		return "User [names=" + names + ", lastName1=" + lastName1 + ", lastName2=" + lastName2 + ", userType="
-				+ userType + ", username=" + username + ", password="
-				+ password /*
-							 * + ", id=" + id + ", idcreatedAt=" + createdAt + ", updatedAt=" + updatedAt
-							 */ + "]";
+				+ userType + ", username=" + username + ", password=" + password + ", id=" + id + ", idcreatedAt="
+				+ createdAt + ", updatedAt=" + updatedAt + "]";
 	}
 
 	@Override
@@ -160,6 +176,9 @@ public class User extends GenericEntity implements Serializable {
 		BeanUtils.copyProperties(this, bean, new String[] { "password" });
 		if (this.userType != null) {
 			bean.setUserType(this.userType.getBean());
+		}
+		if (this.role != null) {
+			bean.setRole(this.role.getBean());
 		}
 		return bean;
 

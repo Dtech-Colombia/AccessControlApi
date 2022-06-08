@@ -2,7 +2,6 @@ package co.com.dtech.accesscontrol.modules.parking.controller;
 
 import java.text.ParseException;
 
-import co.com.dtech.accesscontrol.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import co.com.dtech.accesscontrol.common.util.StringUtils;
 import co.com.dtech.accesscontrol.modules.parking.model.ParkingRequestBean;
 import co.com.dtech.accesscontrol.modules.parking.service.ParkingService;
 

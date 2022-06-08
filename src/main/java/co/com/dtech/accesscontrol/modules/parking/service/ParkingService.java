@@ -46,12 +46,28 @@ public class ParkingService {
 
 	public boolean validate(ParkingRequestBean request) {
 
+		ParkingHistory history = new ParkingHistory();
+
 		Parking parking = parkingRepository.getById(request.getParkingId());
 
 		if (parking == null) {
 			return false;
 		}
+		history.setParking(parking);
+		history.setAction("I");
+		AppLogger.logInfo("request.getTagCode(): "+request.getTagCode());
+		if (!"GUARD".equals(request.getTagCode())) {
+			if (!validateStudent(request, history, parking))
+				return false;
+		}else {
+			history.setReserved("N");
+			history.setActionByGuard("S");
+		}	
+		historyRepository.save(history);
+		return true;
+	}
 
+	private boolean validateStudent(ParkingRequestBean request, ParkingHistory history, Parking parking) {
 		Tag tag = tagRepository.findByTagCode(request.getTagCode());
 		if (tag == null) {
 			return false;
@@ -61,14 +77,10 @@ public class ParkingService {
 		if (user == null) {
 			return false;
 		}
-
-		ParkingHistory history = new ParkingHistory();
-		history.setAction("I");
-		history.setActionByGuard("N");
-		history.setParking(parking);
 		history.setUser(user);
-
-		if ("S".equals(parking.getReserveNeeded())) {
+		history.setActionByGuard("N");
+		
+		if ("S".equals(parking.getReserveNeeded()) && "S".equals(user.getRole().getReserveNeeded())) {
 			ParkingReserve reserve = reserveRepository.validateReserve(new Date(), StatusEnum.ACTIVA.getId(),
 					parking.getId(), user.getId());
 			if (reserve == null) {
@@ -82,7 +94,6 @@ public class ParkingService {
 		}else {
 			history.setReserved("N");
 		}
-		historyRepository.save(history);
 		return true;
 	}
 

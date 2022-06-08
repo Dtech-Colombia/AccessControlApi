@@ -23,7 +23,7 @@ public class ParkingHistory extends GenericEntity {
 	private Parking parking;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id", nullable = false)
+	@JoinColumn(name = "user_id", nullable = true)
 	private User user;
 
 	@Column(name = "action")
