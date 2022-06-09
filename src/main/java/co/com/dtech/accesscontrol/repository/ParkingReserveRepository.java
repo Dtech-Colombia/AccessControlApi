@@ -25,4 +25,11 @@ public interface ParkingReserveRepository extends JpaRepository<ParkingReserve, 
 			+ "AND parking.id = :idParking ")
 	ParkingReserve validateReserve(@Param(value = "currentDate") Date currentDate, @Param(value = "idStatus") Integer status, @Param(value = "idParking") Integer parking, @Param(value = "idUser") Integer user);
 	
+	@Query("FROM ParkingReserve pk "
+			+ "WHERE initialDate <= :currentDate "
+			+ "AND user.id = :idUser "
+			+ "AND status.id = :idStatus "
+			+ "AND parking.id = :idParking ")
+	ParkingReserve registerExitReserve(@Param(value = "currentDate") Date currentDate, @Param(value = "idStatus") Integer status, @Param(value = "idParking") Integer parking, @Param(value = "idUser") Integer user);
+	
 }

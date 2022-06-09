@@ -123,7 +123,7 @@ public class ParkingService {
 		history.setUser(user);
 
 		if ("S".equals(parking.getReserveNeeded()) && "S".equals(user.getRole().getReserveNeeded())) {
-			ParkingReserve reserve = reserveRepository.validateReserve(new Date(), StatusEnum.EN_USO.getId(),
+			ParkingReserve reserve = reserveRepository.registerExitReserve(new Date(), StatusEnum.EN_USO.getId(),
 					parking.getId(), user.getId());
 			if (reserve == null) {
 				throw new IllegalArgumentException("No se encuentra reserva en uso para el usuario: "+ user.getNames() + " "+ user.getLastName1());
